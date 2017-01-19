@@ -12,9 +12,14 @@ bot.on("ready", () => {
 bot.on("messageCreate", (message) => {
     if (message.content.startsWith(prefix)) {
         //Command route
-        bot.createMessage(message.channel.id, () => {
-            text = message.substring(1, message.indexOf(" "));
-        });
+        if (message.content.indexOf(" ") >= 2) {
+            //I can create an argument kind of thingy in here
+            output = message.content.substring(1, message.content.indexOf(" "));
+            bot.createMessage(message.channel.id, output);
+        } else if (!message.content.includes(" ") && message.content[1] !== null) {
+             output = message.content.substring(1, message.content.length);
+             bot.createMessage(message.channel.id, output);
+        }
     } else {
         //Interaction route
     }
