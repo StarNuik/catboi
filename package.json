@@ -1,0 +1,27 @@
+{
+  "name": "catboi",
+  "version": "0.0.1",
+  "description": "A JS discord bot",
+  "main": "welcomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StarNuik/catboi.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "StarNuik",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/StarNuik/catboi/issues"
+  },
+  "homepage": "https://github.com/StarNuik/catboi#readme",
+  "dependencies":{
+    "request":"^2.79.0",
+    "eris":"^0.5.2"
+  }
+}
