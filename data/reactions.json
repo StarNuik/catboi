@@ -1,0 +1,13 @@
+{"interaction" : [{
+    "name" : "test1",
+    "trigger" : ["test", "check", "waffle", "waffer"],
+    "user" : [
+        {"id" : "default", "response" : ["tested", "checked", "I'm a waffle!", "I'm a waffer!"]},
+        {"id" : "127837871259254784", "response" : "You're Star!"}]
+},{
+    "name" : "test2",
+    "trigger" : ["cake", "candy", "donut", "croissant"],
+    "user" : [
+        {"id" : "default", "response" : ["{author:name}, I like that too!", "{author:mention}, I want that too *asking for food face*"]}]}
+],
+"catboi" : ["catboi", "<@243358433745698818>"]}
