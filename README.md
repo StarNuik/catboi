@@ -34,7 +34,10 @@ Will go here
     + Hugs/pats
         + Probably through the db API as well
 + Tatsu styled menus
-+ Think of some minigames
++ Currency
+    + Mini games
+    + Gambling
+    + Bank
 
 ## Changelog #
 >v0.0.1 of Catboi v2 is here. *clapclap*
