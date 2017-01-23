@@ -1,13 +1,14 @@
 {"interaction" : [{
     "name" : "test1",
-    "trigger" : ["test", "check", "waffle", "waffer"],
+    "trigger" : ["test", "check"],
     "user" : [
         {"id" : "default", "response" : ["tested", "checked", "I'm a waffle!", "I'm a waffer!"]},
         {"id" : "127837871259254784", "response" : "You're Star!"}]
 },{
     "name" : "test2",
-    "trigger" : ["cake", "candy", "donut", "croissant"],
+    "trigger" : ["cake", "candy", "donut", "croissant", "waffle", "waffer"],
     "user" : [
-        {"id" : "default", "response" : ["{author:name}, I like that too!", "{author:mention}, I want that too *asking for food face*"]}]}
+        {"id" : "default", "response" : ["{author:name}, I like that too!", "{author:mention}, I want that too *asking for food face*", "{author:nick}, you're as sweet as this thing!", "{mention:username} is sweeter than it!", "{mention:mention}, someone called you sweeter than a bag of sweets!"]},
+        {"id" : "177084184827920384", "response" : ["*cooks cake for Rissa* Have it, senpai!", "You're sweet as well, my love", "Aren't you a sweet thing as well?"]}]}
 ],
 "catboi" : ["catboi", "<@243358433745698818>"]}
