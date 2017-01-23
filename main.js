@@ -8,12 +8,13 @@ var bot = new Eris("MjQzMzU4NDMzNzQ1Njk4ODE4.Cvt1UA.agTtmziRhEO0NBX4A10TQFtgcmA"
 
 bot.on("ready", () => {
     console.log("I am ready to play!");
-    //todo: Actually send a message to the log script that the bot is ready
+    log.logAction("Catboi is ready now.");
 });
 
 bot.on("messageCreate", (message) => {
     if (message.content.startsWith(prefix)) {
         //Command route
+
         //Command Logic:
         //Get text > get command name > check requirements > process command
         if (message.content.indexOf(" ") >= 2) {
