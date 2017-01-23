@@ -1,13 +1,13 @@
 const
     Eris = require("eris"),
     rManager = require("./lib/reactionManager"),
-    Log = require("./lib/log"),
+    log = require("./lib/log"),
     prefix = ">";
 
 var bot = new Eris("MjQzMzU4NDMzNzQ1Njk4ODE4.Cvt1UA.agTtmziRhEO0NBX4A10TQFtgcmA");
 
 bot.on("ready", () => {
-    console.log("I am ready! Nothing crashed, I think.");
+    console.log("I am ready to play!");
     //todo: Actually send a message to the log script that the bot is ready
 });
 
@@ -19,12 +19,12 @@ bot.on("messageCreate", (message) => {
         if (message.content.indexOf(" ") >= 2) {
             //Has spaces. Command has to have at least *a* char. '>c'
             output = message.content.substring(1, message.content.indexOf(" "));
-            Log.logAction(output);
+            log.logAction(output);
             bot.createMessage(message.channel.id, output);
         } else if (!message.content.includes(" ") && message.content[1] !== null) {
             //No spaces
             output = message.content.substring(1, message.content.length);
-            Log.logAction(output);
+            log.logAction(output);
             if (output == "die")
                 Die();
             bot.createMessage(message.channel.id, output);
@@ -33,16 +33,12 @@ bot.on("messageCreate", (message) => {
         //Interaction route
         messageHasName(message.content, (hasName) => {
             getInteractionNum(message.content, (interactionNum) => {
-                //Todo: add {author:argument} and such parser
-                text = rManager.getResponse(interactionNum);
-                bot.createMessage(message.channel.id, text);
+                rManager.getResponse(interactionNum, message.author.id, (text) => {
+                    bot.createMessage(message.channel.id, parseInteraction(text, message));
+                    log.logAction("Interaction activated by " + message.author.username + "." + message.author.id + "\n" + parseInteraction(text, message));
+                });
             });
         })
-        
-        /*This is the pseudo code \/
-        findInter((result)=>{
-            bot.createMessage(channelid, interaction[result])
-        });*/
     }
 });
 
@@ -50,15 +46,15 @@ messageHasName = (messageText, callback) => {
     rManager.getName((catboiName) => {
         for (i = 0; i < catboiName.length; i++) {
             if (messageText.toLowerCase().includes(catboiName[i]))
-                callback();
+                callback(true);
         }
     });
 }
 
 getInteractionNum = (messageText, callback) => {
-    rManager.getLength((err, length) => {
+    rManager.getLength((length) => {
         for (i = 0; i < length; i++) {
-            Log.getTrigger(i, (triggerArray) => {
+            rManager.getTrigger(i, (triggerArray) => {
                 if (triggerArray !== null) {
                     for (j = 0; j < triggerArray.length; j++) {
                         if (messageText.includes(triggerArray[j]))
@@ -69,9 +65,10 @@ getInteractionNum = (messageText, callback) => {
         }
     });
 }
+
 //{author:username} {author:nick} {author:mention} {mention:username} {mention:mention} 
-parseInteraction = (message) => {
-    temp = message.content;
+parseInteraction = (text, message) => {
+    temp = text;
     temp = temp.replace("{author:username}", message.member.username);
     temp = temp.replace("{author:nick}", message.member.nick);
     temp = temp.replace("{author:mention}", message.member.mention);
@@ -87,12 +84,12 @@ parseInteraction = (message) => {
 
 Die = () => {
     bot.disconnect();
-    Log.logAction("Catboi shut down");
-    Log.endLog(() => {
+    log.logAction("Catboi shut down");
+    log.endLog(() => {
         process.exit();
     });
 }
 
-Log.startLog();
+log.startLog();
 rManager.cacheReactions();
 bot.connect();
