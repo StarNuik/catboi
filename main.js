@@ -14,6 +14,8 @@ bot.on("ready", () => {
 bot.on("messageCreate", (message) => {
     if (message.content.startsWith(prefix)) {
         //Command route
+        //Command Logic:
+        //Get text > get command name > check requirements > process command
         if (message.content.indexOf(" ") >= 2) {
             //Has spaces. Command has to have at least *a* char. '>c'
             output = message.content.substring(1, message.content.indexOf(" "));
@@ -31,6 +33,7 @@ bot.on("messageCreate", (message) => {
         //Interaction route
         messageHasName(message.content, (hasName) => {
             getInteractionNum(message.content, (interactionNum) => {
+                //Todo: add {author:argument} and such parser
                 text = rManager.getResponse(interactionNum);
                 bot.createMessage(message.channel.id, text);
             });
@@ -65,6 +68,21 @@ getInteractionNum = (messageText, callback) => {
             });
         }
     });
+}
+//{author:username} {author:nick} {author:mention} {mention:username} {mention:mention} 
+parseInteraction = (message) => {
+    temp = message.content;
+    temp = temp.replace("{author:username}", message.member.username);
+    temp = temp.replace("{author:nick}", message.member.nick);
+    temp = temp.replace("{author:mention}", message.member.mention);
+    if (message.mentions[0] !== undefined) {
+        temp = temp.replace("{mention:username}", message.mentions[0].username);
+        temp = temp.replace("{mention:mention}", message.mentions[0].mention);
+    } else {
+        temp = temp.replace("{mention:username}", message.member.username);
+        temp = temp.replace("{mention:mention}", message.member.mention);
+    }
+    return temp;    
 }
 
 Die = () => {
