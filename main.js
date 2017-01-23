@@ -32,7 +32,7 @@ bot.on("messageCreate", (message) => {
     } else {
         //Interaction route
         messageHasName(message.content, (hasName) => {
-            getInteractionNum(message.content, (interactionNum) => {
+            getInteractionNum(message.content.toLowerCase(), (interactionNum) => {
                 rManager.getResponse(interactionNum, message.author.id, (text) => {
                     bot.createMessage(message.channel.id, parseInteraction(text, message));
                     log.logAction("Interaction activated by " + message.author.username + "." + message.author.id + "\n" + parseInteraction(text, message));
