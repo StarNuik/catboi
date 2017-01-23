@@ -3,7 +3,7 @@
     "trigger" : ["test", "check"],
     "user" : [
         {"id" : "default", "response" : ["I'm a waffle!", "I'm a waffer!"]},
-        {"id" : "127837871259254784", "response" : "You're Star!"}]
+        {"id" : "127837871259254784", "response" : ["You're Star!"]}]
 },{
     "name" : "test2",
     "trigger" : ["cake", "candy", "donut", "croissant", "waffle", "waffer"],
