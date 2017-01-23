@@ -29,7 +29,7 @@ bot.on("messageCreate", (message) => {
                 Die();
             bot.createMessage(message.channel.id, output);
         }
-    } else {
+    } else if (!message.author.bot){
         //Interaction route
         messageHasName(message.content, (hasName) => {
             getInteractionNum(message.content.toLowerCase(), (interactionNum) => {
