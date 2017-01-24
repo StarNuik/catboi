@@ -1,28 +1,97 @@
 const
-    Eris = require("eris"),
+    eris = require("eris"),
+    rManager = require("./lib/reactionManager"),
+    log = require("./lib/log"),
+    command = require("./lib/command"),
+    funCommands = require("./commands/fun"),
+    fs = require("fs"),
     prefix = ">";
 
-var bot = new Eris("MjQzMzU4NDMzNzQ1Njk4ODE4.Cvt1UA.agTtmziRhEO0NBX4A10TQFtgcmA");
+bot = new eris("MjQzMzU4NDMzNzQ1Njk4ODE4.Cvt1UA.agTtmziRhEO0NBX4A10TQFtgcmA");
 
 bot.on("ready", () => {
-    console.log("Ready!");
-    //todo: Actually send a message to the log script that the bot is ready
+    console.log("I am ready to play!");
+    log.logAction("Catboi is ready now.");
 });
 
 bot.on("messageCreate", (message) => {
     if (message.content.startsWith(prefix)) {
         //Command route
-        if (message.content.indexOf(" ") >= 2) {
-            //I can create an argument kind of thingy in here
-            output = message.content.substring(1, message.content.indexOf(" "));
-            bot.createMessage(message.channel.id, output);
-        } else if (!message.content.includes(" ") && message.content[1] !== null) {
-             output = message.content.substring(1, message.content.length);
-             bot.createMessage(message.channel.id, output);
-        }
-    } else {
+        args = message.content.substring(1).split(" ");
+        label = args.shift().toLowerCase();
+        command.actCommand(label, message, args, (result) => {
+            if (typeof result === "number") {
+                rManager.getSoftError(result, (output) => {
+                    bot.createMessage(message.channel.id, output);
+                });
+            } else
+                bot.createMessage(message.channel.id, result);
+            log.logAction("Command " + label + " activated by " + message.author.username + "." + message.author.id);
+        })
+    } else if (!message.author.bot) {
         //Interaction route
+        messageHasName(message.content, (hasName) => {
+            getInteractionNum(message.content.toLowerCase(), (interactionNum) => {
+                rManager.getResponse(interactionNum, message.author.id, (text) => {
+                    bot.createMessage(message.channel.id, parseInteraction(text, message));
+                    log.logAction("Reaction " + interactionNum + " activated by " + message.author.username + "." + message.author.id);
+                });
+            });
+        })
     }
-});
+})
 
+messageHasName = (messageText, callback) => {
+    rManager.getName((catboiName) => {
+        for (i = 0; i < catboiName.length; i++) {
+            if (messageText.toLowerCase().includes(catboiName[i]))
+                callback(true);
+        }
+    });
+}
+
+getInteractionNum = (messageText, callback) => {
+    rManager.getLength((length) => {
+        for (i = 0; i < length; i++) {
+            rManager.getTrigger(i, (triggerArray) => {
+                if (triggerArray !== null) {
+                    for (j = 0; j < triggerArray.length; j++) {
+                        if (messageText.includes(triggerArray[j]))
+                            callback(i);
+                    }
+                }
+            });
+        }
+    });
+}
+
+//{author:username} {author:nick} {author:mention} {mention:username} {mention:mention} 
+parseInteraction = (text, message) => {
+    temp = text;
+    temp = temp.replace("{author:username}", message.member.username);
+    temp = temp.replace("{author:nick}", message.member.nick);
+    temp = temp.replace("{author:mention}", message.member.mention);
+    if (message.mentions[0] !== undefined) {
+        temp = temp.replace("{mention:username}", message.mentions[0].username);
+        temp = temp.replace("{mention:mention}", message.mentions[0].mention);
+    } else {
+        temp = temp.replace("{mention:username}", message.member.username);
+        temp = temp.replace("{mention:mention}", message.member.mention);
+    }
+    return temp;    
+}
+
+command.add("die", (msg, args, callback) => {
+    log.logAction("Catboi shut down");
+    bot.disconnect();
+    log.endLog(() => {
+        process.exit();
+        callback("This message should never show up.");
+    });
+}, {
+    users : ["127837871259254784"]
+})
+
+log.startLog();
+rManager.cacheReactions();
 bot.connect();
