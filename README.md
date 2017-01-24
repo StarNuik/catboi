@@ -5,10 +5,7 @@ A JS Discord bot. Made exclusively for my small and cozy discord server.
 Will go here
 
 ## To do list #
-+ Do a base
-    + A sort of db/json file API
-    + Interaction system that commands go through as well
-    + Log creator?
++ **DONE** ~~Do a base~~
 + Move over the old stuff
     + 8ball
     + Choose
@@ -40,6 +37,11 @@ Will go here
     + Bank
 
 ## Changelog #
+>v0.1.0
+>+ Added reaction module
+>+ Added command module
+>+ Added 8ball command
+>
 >v0.0.1 of Catboi v2 is here. *clapclap*
 
 ## License stuff #
