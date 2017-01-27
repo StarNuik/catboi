@@ -12,4 +12,4 @@
         {"id" : "177084184827920384", "response" : ["*cooks sweets for Rissa* Have them, senpai!", "You're sweet as well, my love", "Aren't you a sweet thing as well?"]}]}
 ],
 "catboi" : ["catboi", "<@243358433745698818>"],
-"error" : ["You don't have permission to use this command.", "You need to mention someone for this command.", "You need to type smth as an argument for this command.", "You don't have the privilege to use this command."]}
+"error" : ["You don't have permission to use this command.", "You need to mention someone for this command.", "You need to type smth as an argument for this command.", "You don't have the privilege to use this command.", "", "Couldn't fetch your request."]}

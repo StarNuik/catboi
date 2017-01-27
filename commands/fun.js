@@ -1,6 +1,5 @@
 const
     command = require("../lib/command"),
-    log = require("../lib/log")
     fs = require("fs"),
     pathBall = "./data/8ball.json";
 

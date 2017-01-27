@@ -5,9 +5,8 @@ A JS Discord bot. Made exclusively for my small and cozy discord server.
 Will go here
 
 ## To do list #
-+ **DONE** ~~Do a base~~
++ DONE ~~Do a base~~
 + Move over the old stuff
-    + 8ball
     + Choose
     + UrbanDictionary
         + Add pages to this one

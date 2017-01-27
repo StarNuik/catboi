@@ -1,9 +1,11 @@
 const
     eris = require("eris"),
-    rManager = require("./lib/reactionManager"),
     log = require("./lib/log"),
+    rManager = require("./lib/reactionManager"),
     command = require("./lib/command"),
     funCommands = require("./commands/fun"),
+    modCommands = require("./commands/mod"),
+    nsfwCommands = require("./commands/nsfw"),
     fs = require("fs"),
     prefix = ">";
 
@@ -14,6 +16,8 @@ bot.on("ready", () => {
     log.logAction("Catboi is ready now.");
 });
 
+//Command soft errors
+//0 === no manage permissions permission; 1 === no mention; 2 === no argument; 3 === command's user specific; 4 === wrong argument use; 5 === API request failed
 bot.on("messageCreate", (message) => {
     if (message.content.startsWith(prefix)) {
         //Command route
@@ -27,7 +31,7 @@ bot.on("messageCreate", (message) => {
             } else
                 bot.createMessage(message.channel.id, result);
             log.logAction("Command " + label + " activated by " + message.author.username + "." + message.author.id);
-        })
+        });
     } else if (!message.author.bot) {
         //Interaction route
         messageHasName(message.content, (hasName) => {
