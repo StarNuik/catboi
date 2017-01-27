@@ -2,7 +2,9 @@
 A JS Discord bot. Made exclusively for my small and cozy discord server.
 
 ## Command list #
-Will go here
+Command prefix is >
+>8ball : Answers your questions more or less reliably
+>yandere : Pulls hentai pics from yande.re. Use +s to find non-explicit content.
 
 ## To do list #
 + DONE ~~Do a base~~
@@ -36,6 +38,9 @@ Will go here
     + Bank
 
 ## Changelog #
+>v0.1.1
+>+ Added yandere (+s) command
+>
 >v0.1.0
 >+ Added reaction module
 >+ Added command module
